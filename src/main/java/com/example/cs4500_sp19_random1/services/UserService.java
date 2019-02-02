@@ -1,6 +1,5 @@
-package com.example.cs4500sp19s3jga.services;
+package com.example.cs4500_sp19_random1.services;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,8 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.cs4500sp19s3jga.models.User;
-import com.example.cs4500sp19s3jga.repositories.UserRepository;
+import com.example.cs4500_sp19_random1.models.User;
+import com.example.cs4500_sp19_random1.repositories.UserRepository;
+
+import java.util.List;
 
 @RestController
 public class UserService {
