@@ -43,17 +43,18 @@ public class FrequentlyAskedQuestion {
   public void setQuestion(String question) {
     this.question = question;
   }
+
   public void answeredQuestion(FrequentlyAskedAnswer answer) {
     this.answers.add(answer);
-    if (answer.getQuestion() != this.question) {
-      answer.setQuestion(this.question);
+    if (answer.getFrequentlyAskedQuestion() != this) {
+      answer.setFrequentlyAskedQuestion(this);
     }
   }
 
-    public void removeAnswer(FrequentlyAskedAnswer answer) {
-    if (this.answers.contains(answer)) {
-      this.answers.remove(answer);
-      }
+  public void removeAnswer(FrequentlyAskedAnswer answer) {
+  if (this.answers.contains(answer)) {
+    this.answers.remove(answer);
     }
   }
+}
 
