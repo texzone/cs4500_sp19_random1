@@ -23,13 +23,9 @@ public class FrequentlyAskedAnswer {
     @ManyToOne
     @JsonIgnore
     private User user;
-    @Transient
-    private String question;
+
     public String getQuestion() {
         return frequentlyAskedQuestion.getQuestion();
-    }
-    public void setQuestion(String question) {
-        this.question = question;
     }
     public User getUser() {
         return user;
