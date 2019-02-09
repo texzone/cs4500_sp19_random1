@@ -50,7 +50,7 @@ public class Service {
     public String getServiceName() {
         return serviceName;
     }
-    public void setTitle(String title) {
-        this.title = title;
+    public void setServiceName(String title) {
+        this.serviceName = title;
     }
 }
