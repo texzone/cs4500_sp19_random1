@@ -19,7 +19,7 @@ public class Service {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
-    private String title;
+    private String serviceName;
     @ManyToMany
     @JsonIgnore
     @JoinTable(
@@ -47,8 +47,8 @@ public class Service {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getTitle() {
-        return title;
+    public String getServiceName() {
+        return serviceName;
     }
     public void setTitle(String title) {
         this.title = title;
