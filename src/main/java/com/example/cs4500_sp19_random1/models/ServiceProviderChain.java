@@ -15,10 +15,14 @@ public class ServiceProviderChain {
 
   @ManyToOne
   @MapsId("service_id")
+  private Integer serviceID;
+
   private Service service;
 
   @ManyToOne
   @MapsId("provider_id")
+  private Integer providerID;
+
   private ServiceProvider serviceProvider;
 
 
@@ -27,5 +31,7 @@ public class ServiceProviderChain {
     this.serviceProvider = sp;
     this.service = service;
     this.id = Integer.toString(this.serviceProvider.getId()) + Integer.toString(this.service.getId());
+    this.serviceID = this.service.getId();
+    this.providerID = this.serviceProvider.getId();
   }
 }
