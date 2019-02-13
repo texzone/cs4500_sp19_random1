@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 @Entity
 @Table(name = "service_providers")
 public class ServiceProvider extends User {
-  @OneToMany(mappedBy = "service_provider")
+  @OneToMany(mappedBy = "providers")
   private List<Service> services;
 
   public ServiceProvider(Integer i, String username, String firstName, String lastName, List<Service> services) {
