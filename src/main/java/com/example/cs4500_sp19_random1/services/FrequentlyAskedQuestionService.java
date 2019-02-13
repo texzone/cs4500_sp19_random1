@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.cs4500_sp19_random1.models.FrequentlyAskedQuestion;
 import com.example.cs4500_sp19_random1.models.FrequentlyAskedAnswer;
@@ -18,6 +19,7 @@ import com.example.cs4500_sp19_random1.repositories.FrequentlyAskedQuestionRepos
 import com.example.cs4500_sp19_random1.repositories.FrequentlyAskedAnswerRepository;
 
 @RestController
+@CrossOrigin(origins="*")
 public class FrequentlyAskedQuestionService {
   @Autowired
   FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository;
