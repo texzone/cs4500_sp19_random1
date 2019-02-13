@@ -11,8 +11,10 @@ import com.example.cs4500_sp19_random1.models.ServiceProviderChain;
 public interface ServiceProviderChainRepository extends CrudRepository<ServiceProviderChain, Integer> {
   @Query(value="SELECT spchain FROM ServiceProviderChain spchain")
   public List<ServiceProviderChain> findAllSPChains();
-  @Query(value="SELECT spchain FROM ServiceProviderChain spchain WHERE spchain.service=:serviceId")
-  public List<ServiceProviderChain> findAllServiceSPChains(@Param("service_id") Integer serviceId);
-  @Query(value="SELECT spchain FROM ServiceProviderChain spchain WHERE spchain.provider=:providerId")
+
+  @Query(value="SELECT spchain FROM ServiceProviderChain spchain WHERE spchain.service.id=:serviceId")
+  public List<ServiceProviderChain> findAllServiceSPChains(@Param("serviceId") Integer serviceId);
+
+  @Query(value="SELECT spchain FROM ServiceProviderChain spchain WHERE spchain.serviceProvider.id=:providerId")
   public List<ServiceProviderChain> findAllProviderSPChains(@Param("providerId") Integer providerId);
 }
