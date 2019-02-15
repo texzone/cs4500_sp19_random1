@@ -1,4 +1,5 @@
 package com.example.cs4500_sp19_random1.repositories;
+
 import com.example.cs4500_sp19_random1.models.FrequentlyAskedQuestion;
 
 import java.util.List;
