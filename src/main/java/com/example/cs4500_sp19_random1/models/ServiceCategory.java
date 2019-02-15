@@ -4,11 +4,9 @@ package com.example.cs4500_sp19_random1.models;
  * Not sure what the rule of thumb is, but these imports were getting extensive.
  * Shortening with wildcard until someone argues otherwise.
  */
-import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="service_categories")

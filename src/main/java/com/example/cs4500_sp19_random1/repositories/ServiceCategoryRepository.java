@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.example.cs4500_sp19_random1.models.Service;
 import com.example.cs4500_sp19_random1.models.ServiceCategory;
 
 
