@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.example.cs4500_sp19_random1.models.Service;
 import com.example.cs4500_sp19_random1.models.ServiceCategory;
 
+
 public interface ServiceCategoryRepository extends CrudRepository<ServiceCategory, Integer> {
   @Query(value="SELECT serviceCategory FROM ServiceCategory serviceCategory")
   public List<ServiceCategory> findAllServiceCategories();
