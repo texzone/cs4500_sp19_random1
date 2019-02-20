@@ -1,5 +1,7 @@
 package com.example.cs4500_sp19_random1.models;
 
+import java.util.List;
+
 public class Estimate {
     private float estimate;
     private float basePrice;
@@ -7,6 +9,7 @@ public class Estimate {
     private boolean subscription;
     private Frequency subscriptionFrequency;
     private Frequency deliveryFrequency;
+    private List<DeliveryFee> deliveryFees;
     
     public Estimate(float est, float basePrice, Frequency baseFrequency,
             boolean sub, Frequency subFreq, Frequency deliveryFreq) {
@@ -16,6 +19,7 @@ public class Estimate {
         this.subscription          = sub;
         this.subscriptionFrequency = subFreq;
         this.deliveryFrequency     = deliveryFreq;
+        this.deliveryFees           = deliveryFees;
     }
 
     public float getEstimate() {
@@ -65,5 +69,15 @@ public class Estimate {
     public void setDeliveryFrequency(Frequency deliveryFrequency) {
         this.deliveryFrequency = deliveryFrequency;
     }
+
+    public List<DeliveryFee> getDeliveryFees() {
+        return this.deliveryFees;
+    }
+
+    public void setDeliveryFees(List<DeliveryFee> deliveryFees) {
+        this.deliveryFees = deliveryFees;
+    }
+
+
 
 }
