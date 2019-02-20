@@ -12,14 +12,14 @@ public class Estimate {
     private List<DeliveryFee> deliveryFees;
     
     public Estimate(float est, float basePrice, Frequency baseFrequency,
-            boolean sub, Frequency subFreq, Frequency deliveryFreq) {
+            boolean sub, Frequency subFreq, Frequency deliveryFreq, List<DeliveryFee> deliveryFees) {
         this.estimate              = est;
         this.basePrice             = basePrice;
         this.baseFrequency         = baseFrequency;
         this.subscription          = sub;
         this.subscriptionFrequency = subFreq;
         this.deliveryFrequency     = deliveryFreq;
-        this.deliveryFees           = deliveryFees;
+        this.deliveryFees          = deliveryFees;
     }
 
     public float getEstimate() {
@@ -78,6 +78,18 @@ public class Estimate {
         this.deliveryFees = deliveryFees;
     }
 
-
+    public float getFees() {
+        Float ans = 0.0f;
+        for(DeliveryFee fee : deliveryFees) {
+            if(fee.getFrequency().equals(deliveryFrequency)) {
+                if(fee.isFlat() == true) {
+                    ans = fee.getFee();
+                } else {
+                    ans = fee.getFee() * basePrice;
+                }
+            }
+        }
+        return ans;
+    }
 
 }
