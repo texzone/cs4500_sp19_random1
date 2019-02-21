@@ -78,6 +78,15 @@ public class Estimate {
         this.deliveryFees = deliveryFees;
     }
 
+    public float getFinalPrice() {
+        return basePrice + getFees() - getDiscount();
+    }
+
+    // TODO: Add a real discount algorithm
+    public float getDiscount() {
+        return 0.0f;
+    }
+
     public float getFees() {
         Float ans = 0.0f;
         for(DeliveryFee fee : deliveryFees) {
