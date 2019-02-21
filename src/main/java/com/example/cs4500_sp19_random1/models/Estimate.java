@@ -85,7 +85,7 @@ public class Estimate {
                 if(fee.isFlat() == true) {
                     ans = fee.getFee();
                 } else {
-                    ans = fee.getFee() * basePrice;
+                    ans = fee.getFee() / 100 * basePrice;
                 }
             }
         }
