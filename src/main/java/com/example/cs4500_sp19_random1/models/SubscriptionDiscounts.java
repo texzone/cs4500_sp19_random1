@@ -10,19 +10,23 @@ public class Estimate {
     private Frequency subscriptionFrequency;
     private Frequency deliveryFrequency;
     private List<DeliveryFee> deliveryFees;
+    private SubscriptionDiscounts subscriptionDiscounts;
     
-    public Estimate(float est, float basePrice, Frequency baseFrequency,
-            boolean sub, Frequency subFreq, Frequency deliveryFreq, List<DeliveryFee> deliveryFees) {
-        this.estimate              = est;
+    public Estimate(float basePrice, Frequency baseFrequency,
+            boolean sub, Frequency subFreq, SubscriptionDiscount subDiscount,
+            Frequency deliveryFreq, List<DeliveryFee> deliveryFees) {
         this.basePrice             = basePrice;
         this.baseFrequency         = baseFrequency;
         this.subscription          = sub;
         this.subscriptionFrequency = subFreq;
+        this.subscriptionDiscount  = subDiscount;
         this.deliveryFrequency     = deliveryFreq;
         this.deliveryFees          = deliveryFees;
+        this.calculateEstimate();
     }
 
     public float getEstimate() {
+        this.calculateEstimate();
         return this.estimate;
     }
 
@@ -82,9 +86,15 @@ public class Estimate {
         return basePrice + getFees() - getDiscount();
     }
 
-    // TODO: Add a real discount algorithm
     public float getDiscount() {
-        return 0.0f;
+        float freqDiscount = this.subscriptionDiscounts.getDiscountFor(
+                this.subscriptionFrequency);
+        if (this.subscriptionDiscounts.isFlat()) {
+            return freqDiscount;
+        }
+        else {
+            return (freqDiscount / 100f) * this.basePrice;
+        }
     }
 
     public float getFees() {
@@ -99,6 +109,10 @@ public class Estimate {
             }
         }
         return ans;
+    }
+
+    private void calculateEstimate() {
+        this.estimate = this.basePrice - this.getDiscount() + this.getFees();
     }
 
 }

@@ -2,13 +2,13 @@ package com.example.cs4500_sp19_random1.models;
 
 import java.util.*;
 
-public class SubscriptionDiscount {
+public class SubscriptionDiscounts {
     private Map<Frequency, Float> discountMap;
     private boolean isFlat;
 
-    public SubscriptionDiscount() {}
+    public SubscriptionDiscounts() {}
     
-    public SubscriptionDiscount(Map<Frequency, Float> discMap, boolean flat) {
+    public SubscriptionDiscounts(Map<Frequency, Float> discMap, boolean flat) {
         this.discountMap = discMap;
         this.isFlat      = flat;
     }
