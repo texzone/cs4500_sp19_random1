@@ -82,6 +82,15 @@ public class Estimate {
         this.deliveryFees = deliveryFees;
     }
 
+    public void addDeliveryFee(DeliveryFee fee) {
+        this.deliveryFees.add(fee);
+    }
+
+    public void generateProgressiveFee(Float percentFee) {
+        DeliveryFee progressiveFee = new DeliveryFee(percentFee, deliveryFrequency, false);
+        addDeliveryFee(progressiveFee);
+    }
+
     public float getFinalPrice() {
         return basePrice + getFees() - getDiscount();
     }
@@ -102,9 +111,10 @@ public class Estimate {
         for(DeliveryFee fee : deliveryFees) {
             if(fee.getFrequency().equals(deliveryFrequency)) {
                 if(fee.isFlat() == true) {
-                    ans = fee.getFee();
+                    ans = ans + fee.getFee();
                 } else {
-                    ans = fee.getFee() / 100 * basePrice;
+                    Float percentFee = fee.getFee() / 100 * basePrice;
+                    ans = ans + percentFee;
                 }
             }
         }
