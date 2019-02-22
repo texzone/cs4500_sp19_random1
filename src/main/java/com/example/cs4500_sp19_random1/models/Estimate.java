@@ -13,13 +13,13 @@ public class Estimate {
     private SubscriptionDiscounts subscriptionDiscounts;
     
     public Estimate(float basePrice, Frequency baseFrequency,
-            boolean sub, Frequency subFreq, SubscriptionDiscount subDiscount,
+            boolean sub, Frequency subFreq, SubscriptionDiscounts subDiscounts,
             Frequency deliveryFreq, List<DeliveryFee> deliveryFees) {
         this.basePrice             = basePrice;
         this.baseFrequency         = baseFrequency;
         this.subscription          = sub;
         this.subscriptionFrequency = subFreq;
-        this.subscriptionDiscount  = subDiscount;
+        this.subscriptionDiscounts = subDiscounts;
         this.deliveryFrequency     = deliveryFreq;
         this.deliveryFees          = deliveryFees;
         this.calculateEstimate();
@@ -89,7 +89,7 @@ public class Estimate {
     public float getDiscount() {
         float freqDiscount = this.subscriptionDiscounts.getDiscountFor(
                 this.subscriptionFrequency);
-        if (this.subscriptionDiscounts.isFlat()) {
+        if (this.subscriptionDiscounts.getIsFlat()) {
             return freqDiscount;
         }
         else {
