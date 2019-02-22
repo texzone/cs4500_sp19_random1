@@ -1,118 +1,37 @@
 package com.example.cs4500_sp19_random1.models;
 
-import java.util.List;
+import java.util.*;
 
-public class Estimate {
-    private float estimate;
-    private float basePrice;
-    private Frequency baseFrequency;
-    private boolean subscription;
-    private Frequency subscriptionFrequency;
-    private Frequency deliveryFrequency;
-    private List<DeliveryFee> deliveryFees;
-    private SubscriptionDiscounts subscriptionDiscounts;
+public class SubscriptionDiscounts {
+    private Map<Frequency, Float> discountMap;
+    private boolean isFlat;
+
+    public SubscriptionDiscounts() {}
     
-    public Estimate(float basePrice, Frequency baseFrequency,
-            boolean sub, Frequency subFreq, SubscriptionDiscount subDiscount,
-            Frequency deliveryFreq, List<DeliveryFee> deliveryFees) {
-        this.basePrice             = basePrice;
-        this.baseFrequency         = baseFrequency;
-        this.subscription          = sub;
-        this.subscriptionFrequency = subFreq;
-        this.subscriptionDiscount  = subDiscount;
-        this.deliveryFrequency     = deliveryFreq;
-        this.deliveryFees          = deliveryFees;
-        this.calculateEstimate();
+    public SubscriptionDiscounts(Map<Frequency, Float> discMap, boolean flat) {
+        this.discountMap = discMap;
+        this.isFlat      = flat;
     }
 
-    public float getEstimate() {
-        this.calculateEstimate();
-        return this.estimate;
-    }
-
-    public void setEstimate(float estimate) {
-        this.estimate = estimate;
-    }
-
-    public float getBasePrice() {
-        return this.basePrice;
-    }
-
-    public void setBasePrice(float basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public Frequency getBaseFrequency() {
-        return this.baseFrequency;
-    }
-
-    public void setBaseFrequency(Frequency baseFrequency) {
-        this.baseFrequency = baseFrequency;
-    }
-
-    public boolean getSubscription() {
-        return this.subscription;
-    }
-
-    public void setSubscription(boolean subscription) {
-        this.subscription = subscription;
-    }
-
-    public Frequency getSubscriptionFrequency() {
-        return this.subscriptionFrequency;
-    }
-
-    public void setSubscriptionFrequency(Frequency subFrequency) {
-        this.subscriptionFrequency = subFrequency;
-    }
-
-    public Frequency getDeliveryFrequency() {
-        return this.deliveryFrequency;
-    }
-
-    public void setDeliveryFrequency(Frequency deliveryFrequency) {
-        this.deliveryFrequency = deliveryFrequency;
-    }
-
-    public List<DeliveryFee> getDeliveryFees() {
-        return this.deliveryFees;
-    }
-
-    public void setDeliveryFees(List<DeliveryFee> deliveryFees) {
-        this.deliveryFees = deliveryFees;
-    }
-
-    public float getFinalPrice() {
-        return basePrice + getFees() - getDiscount();
-    }
-
-    public float getDiscount() {
-        float freqDiscount = this.subscriptionDiscounts.getDiscountFor(
-                this.subscriptionFrequency);
-        if (this.subscriptionDiscounts.isFlat()) {
-            return freqDiscount;
+    public float getDiscountFor(Frequency f) {
+        Float discount = this.discountMap.get(f);
+        if (discount == null) {
+            return 0f;
         }
         else {
-            return (freqDiscount / 100f) * this.basePrice;
+            return discount.floatValue();
         }
     }
 
-    public float getFees() {
-        Float ans = 0.0f;
-        for(DeliveryFee fee : deliveryFees) {
-            if(fee.getFrequency().equals(deliveryFrequency)) {
-                if(fee.isFlat() == true) {
-                    ans = fee.getFee();
-                } else {
-                    ans = fee.getFee() / 100 * basePrice;
-                }
-            }
-        }
-        return ans;
+    public void setDiscountMap(Map<Frequency, Float> discMap) {
+        this.discountMap = discMap;
     }
 
-    private void calculateEstimate() {
-        this.estimate = this.basePrice - this.getDiscount() + this.getFees();
+    public boolean getIsFlat() {
+        return this.isFlat;
     }
 
+    public void setIsFlat(boolean isFlat) {
+        this.isFlat = isFlat;
+    }
 }
