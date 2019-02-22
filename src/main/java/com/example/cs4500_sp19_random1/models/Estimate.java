@@ -1,6 +1,7 @@
 package com.example.cs4500_sp19_random1.models;
 
 import java.util.List;
+import java.util.HashMap;
 
 public class Estimate {
     private float estimate;
@@ -10,19 +11,22 @@ public class Estimate {
     private Frequency subscriptionFrequency;
     private Frequency deliveryFrequency;
     private List<DeliveryFee> deliveryFees;
+    private HashMap<Frequency, SubscriptionDiscount> subscriptionDiscounts;
     
-    public Estimate(float est, float basePrice, Frequency baseFrequency,
-            boolean sub, Frequency subFreq, Frequency deliveryFreq, List<DeliveryFee> deliveryFees) {
-        this.estimate              = est;
+    public Estimate(float basePrice, Frequency baseFrequency,
+            boolean sub, Frequency subFreq, HashMap<Frequency, SubscriptionDiscount> subDiscounts,
+            Frequency deliveryFreq, List<DeliveryFee> deliveryFees) {
         this.basePrice             = basePrice;
         this.baseFrequency         = baseFrequency;
         this.subscription          = sub;
         this.subscriptionFrequency = subFreq;
+        this.subscriptionDiscounts = subDiscounts;
         this.deliveryFrequency     = deliveryFreq;
         this.deliveryFees          = deliveryFees;
     }
 
     public float getEstimate() {
+        this.estimate = this.getFinalPrice();
         return this.estimate;
     }
 
@@ -62,6 +66,18 @@ public class Estimate {
         this.subscriptionFrequency = subFrequency;
     }
 
+    public HashMap<Frequency, SubscriptionDiscount> getSubscriptionDiscounts() {
+        return this.subscriptionDiscounts;
+    }
+
+    public void setSubscriptionDiscounts(HashMap<Frequency, SubscriptionDiscount> subDiscs) {
+        this.subscriptionDiscounts = subDiscs;
+    }
+
+    public void addSubscriptionDiscount(Frequency f, SubscriptionDiscount disc) {
+        this.subscriptionDiscounts.put(f, disc);
+    }
+
     public Frequency getDeliveryFrequency() {
         return this.deliveryFrequency;
     }
@@ -91,9 +107,18 @@ public class Estimate {
         return basePrice + getFees() - getDiscount();
     }
 
-    // TODO: Add a real discount algorithm
     public float getDiscount() {
-        return 0.0f;
+        SubscriptionDiscount theDiscount = this.subscriptionDiscounts.get(
+                this.subscriptionFrequency);
+        if (null == theDiscount) {
+            return 0f;
+        }
+        else if (theDiscount.getIsFlat()) {
+            return theDiscount.getDiscount();
+        }
+        else {
+            return (theDiscount.getDiscount() / 100f) * this.basePrice;
+        }
     }
 
     public float getFees() {

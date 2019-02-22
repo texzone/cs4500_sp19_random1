@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.rules.*;
@@ -32,40 +33,42 @@ public class DeliveryFeeEstimateTest {
           yearlyflat, emergencyflat));
   List<DeliveryFee> listfeesmixed = new ArrayList<>(Arrays.asList(weekdayflat, holidaytwenty, weekendflat,
           yearly, emergencyflat));
+  
+  HashMap<Frequency, SubscriptionDiscount> garbDiscounts = 
+      new HashMap<Frequency, SubscriptionDiscount>();
 
+  Estimate estimate1 = new Estimate(750f, Frequency.HOLIDAY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.HOLIDAY, listfees);
+  Estimate estimate2 = new Estimate(750f, Frequency.EMERGENCY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.WEEKEND, listfees);
+  Estimate estimate3 = new Estimate(750f, Frequency.WEEKEND, false,
+          Frequency.DAILY, garbDiscounts, Frequency.EMERGENCY, listfees);
+  Estimate estimate4 = new Estimate(750f, Frequency.WEEKDAY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.YEARLY, listfees);
+  Estimate estimate5 = new Estimate(750f, Frequency.YEARLY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.WEEKDAY, listfees);
 
-  Estimate estimate1 = new Estimate(0f, 750f, Frequency.HOLIDAY, false,
-          Frequency.DAILY, Frequency.HOLIDAY, listfees);
-  Estimate estimate2 = new Estimate(0f, 750f, Frequency.EMERGENCY, false,
-          Frequency.DAILY, Frequency.WEEKEND, listfees);
-  Estimate estimate3 = new Estimate(0f, 750f, Frequency.WEEKEND, false,
-          Frequency.DAILY, Frequency.EMERGENCY, listfees);
-  Estimate estimate4 = new Estimate(0f, 750f, Frequency.WEEKDAY, false,
-          Frequency.DAILY, Frequency.YEARLY, listfees);
-  Estimate estimate5 = new Estimate(0f, 750f, Frequency.YEARLY, false,
-          Frequency.DAILY, Frequency.WEEKDAY, listfees);
+  Estimate estimate1flat = new Estimate(750f, Frequency.HOLIDAY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.HOLIDAY, listfeesflat);
+  Estimate estimate2flat = new Estimate(750f, Frequency.EMERGENCY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.WEEKEND, listfeesflat);
+  Estimate estimate3flat = new Estimate(750f, Frequency.WEEKEND, false,
+          Frequency.DAILY, garbDiscounts, Frequency.EMERGENCY, listfeesflat);
+  Estimate estimate4flat = new Estimate(750f, Frequency.WEEKDAY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.YEARLY, listfeesflat);
+  Estimate estimate5flat = new Estimate(750f, Frequency.YEARLY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.WEEKDAY, listfeesflat);
 
-  Estimate estimate1flat = new Estimate(0f, 750f, Frequency.HOLIDAY, false,
-          Frequency.DAILY, Frequency.HOLIDAY, listfeesflat);
-  Estimate estimate2flat = new Estimate(0f, 750f, Frequency.EMERGENCY, false,
-          Frequency.DAILY, Frequency.WEEKEND, listfeesflat);
-  Estimate estimate3flat = new Estimate(0f, 750f, Frequency.WEEKEND, false,
-          Frequency.DAILY, Frequency.EMERGENCY, listfeesflat);
-  Estimate estimate4flat = new Estimate(0f, 750f, Frequency.WEEKDAY, false,
-          Frequency.DAILY, Frequency.YEARLY, listfeesflat);
-  Estimate estimate5flat = new Estimate(0f, 750f, Frequency.YEARLY, false,
-          Frequency.DAILY, Frequency.WEEKDAY, listfeesflat);
-
-  Estimate estimate1m = new Estimate(0f, 750f, Frequency.HOLIDAY, false,
-          Frequency.DAILY, Frequency.HOLIDAY, listfeesmixed);
-  Estimate estimate2m = new Estimate(0f, 750f, Frequency.EMERGENCY, false,
-          Frequency.DAILY, Frequency.WEEKEND, listfeesmixed);
-  Estimate estimate3m = new Estimate(0f, 750f, Frequency.WEEKEND, false,
-          Frequency.DAILY, Frequency.EMERGENCY, listfeesmixed);
-  Estimate estimate4m = new Estimate(0f, 750f, Frequency.WEEKDAY, false,
-          Frequency.DAILY, Frequency.YEARLY, listfeesmixed);
-  Estimate estimate5m = new Estimate(0f, 750f, Frequency.YEARLY, false,
-          Frequency.DAILY, Frequency.WEEKDAY, listfeesmixed);
+  Estimate estimate1m = new Estimate(750f, Frequency.HOLIDAY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.HOLIDAY, listfeesmixed);
+  Estimate estimate2m = new Estimate(750f, Frequency.EMERGENCY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.WEEKEND, listfeesmixed);
+  Estimate estimate3m = new Estimate(750f, Frequency.WEEKEND, false,
+          Frequency.DAILY, garbDiscounts, Frequency.EMERGENCY, listfeesmixed);
+  Estimate estimate4m = new Estimate(750f, Frequency.WEEKDAY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.YEARLY, listfeesmixed);
+  Estimate estimate5m = new Estimate(750f, Frequency.YEARLY, false,
+          Frequency.DAILY, garbDiscounts, Frequency.WEEKDAY, listfeesmixed);
 
 
   @Rule
