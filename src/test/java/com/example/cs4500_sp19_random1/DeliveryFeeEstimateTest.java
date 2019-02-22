@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import org.junit.rules.*;
+import org.junit.Rule;
 
 public class DeliveryFeeEstimateTest {
 
@@ -64,6 +66,18 @@ public class DeliveryFeeEstimateTest {
           Frequency.DAILY, Frequency.YEARLY, listfeesmixed);
   Estimate estimate5m = new Estimate(0f, 750f, Frequency.YEARLY, false,
           Frequency.DAILY, Frequency.WEEKDAY, listfeesmixed);
+
+
+  @Rule
+  public ExpectedException exception = ExpectedException.none();
+
+  @Test
+  public void testNegativeDeliveryFee(){
+    exception.expect(IllegalArgumentException.class);
+    exception.expectMessage("Can't be negative");
+    new DeliveryFee(-1.0f, Frequency.WEEKDAY, false);
+  }
+
 
   @Test
   public void DeliveryFeeEstimateNotFlat() {
