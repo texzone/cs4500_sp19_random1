@@ -108,16 +108,21 @@ public class Estimate {
     }
 
     public float getDiscount() {
-        SubscriptionDiscount theDiscount = this.subscriptionDiscounts.get(
-                this.subscriptionFrequency);
-        if (null == theDiscount) {
+        if (!this.subscription) {
             return 0f;
         }
-        else if (theDiscount.getIsFlat()) {
-            return theDiscount.getDiscount();
-        }
         else {
-            return (theDiscount.getDiscount() / 100f) * this.basePrice;
+            SubscriptionDiscount theDiscount = this.subscriptionDiscounts.get(
+                    this.subscriptionFrequency);
+            if (null == theDiscount) {
+                return 0f;
+            }
+            else if (theDiscount.getIsFlat()) {
+                return theDiscount.getDiscount();
+            }
+            else {
+                return (theDiscount.getDiscount() / 100f) * this.basePrice;
+            }
         }
     }
 
