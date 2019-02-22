@@ -5,10 +5,6 @@ import com.example.cs4500_sp19_random1.models.Estimate;
 import com.example.cs4500_sp19_random1.models.Frequency;
 
 import org.junit.Test;
-//import org.junit.Assert;
-//import org.junit.runner.RunWith;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -125,4 +121,34 @@ public class DeliveryFeeEstimateTest {
     assertEquals(862.5f, estimate4m.getFinalPrice(), 0.001);
     assertEquals(750f,   estimate5m.getFinalPrice(), 0.001);
   }
+
+  @Test
+  public void ProgressiveFeeTest() {
+    estimate1.generateProgressiveFee(10f);
+    estimate2.generateProgressiveFee(10f);
+    estimate3.generateProgressiveFee(10f);
+    estimate4.generateProgressiveFee(10f);
+    estimate5.generateProgressiveFee(10f);
+    assertEquals(225f, estimate1.getFees(), 0.001);
+    assertEquals(150f, estimate2.getFees(), 0.001);
+    assertEquals(300f, estimate3.getFees(), 0.001);
+    assertEquals(187.5f, estimate4.getFees(), 0.001);
+    assertEquals(75f, estimate5.getFees(), 0.001);
+  }
+
+  // Update with new final price once discount is added
+  @Test
+  public void ProgressiveFeeFinalPriceTest() {
+    estimate1flat.generateProgressiveFee(10f);
+    estimate2flat.generateProgressiveFee(10f);
+    estimate3flat.generateProgressiveFee(10f);
+    estimate4flat.generateProgressiveFee(10f);
+    estimate5flat.generateProgressiveFee(10f);
+    assertEquals(845f, estimate1flat.getFinalPrice(), 0.001);
+    assertEquals(835f, estimate2flat.getFinalPrice(), 0.001);
+    assertEquals(855f, estimate3flat.getFinalPrice(), 0.001);
+    assertEquals(840f, estimate4flat.getFinalPrice(), 0.001);
+    assertEquals(825f, estimate5flat.getFinalPrice(), 0.001);
+  }
+
 }
