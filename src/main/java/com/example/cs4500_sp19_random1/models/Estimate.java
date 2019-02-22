@@ -1,6 +1,7 @@
 package com.example.cs4500_sp19_random1.models;
 
 import java.util.List;
+import java.util.HashMap;
 
 public class Estimate {
     private float estimate;
@@ -10,10 +11,10 @@ public class Estimate {
     private Frequency subscriptionFrequency;
     private Frequency deliveryFrequency;
     private List<DeliveryFee> deliveryFees;
-    private SubscriptionDiscounts subscriptionDiscounts;
+    private HashMap<Frequency, SubscriptionDiscount> subscriptionDiscounts;
     
     public Estimate(float basePrice, Frequency baseFrequency,
-            boolean sub, Frequency subFreq, SubscriptionDiscounts subDiscounts,
+            boolean sub, Frequency subFreq, HashMap<Frequency, SubscriptionDiscount> subDiscounts,
             Frequency deliveryFreq, List<DeliveryFee> deliveryFees) {
         this.basePrice             = basePrice;
         this.baseFrequency         = baseFrequency;
@@ -22,11 +23,10 @@ public class Estimate {
         this.subscriptionDiscounts = subDiscounts;
         this.deliveryFrequency     = deliveryFreq;
         this.deliveryFees          = deliveryFees;
-        this.calculateEstimate();
     }
 
     public float getEstimate() {
-        this.calculateEstimate();
+        this.estimate = this.getFinalPrice();
         return this.estimate;
     }
 
@@ -66,6 +66,18 @@ public class Estimate {
         this.subscriptionFrequency = subFrequency;
     }
 
+    public HashMap<Frequency, SubscriptionDiscount> getSubscriptionDiscounts() {
+        return this.subscriptionDiscounts;
+    }
+
+    public void setSubscriptionDiscounts(HashMap<Frequency, SubscriptionDiscount> subDiscs) {
+        this.subscriptionDiscounts = subDiscs;
+    }
+
+    public void addSubscriptionDiscount(Frequency f, SubscriptionDiscount disc) {
+        this.subscriptionDiscounts.put(f, disc);
+    }
+
     public Frequency getDeliveryFrequency() {
         return this.deliveryFrequency;
     }
@@ -96,13 +108,16 @@ public class Estimate {
     }
 
     public float getDiscount() {
-        float freqDiscount = this.subscriptionDiscounts.getDiscountFor(
+        SubscriptionDiscount theDiscount = this.subscriptionDiscounts.get(
                 this.subscriptionFrequency);
-        if (this.subscriptionDiscounts.getIsFlat()) {
-            return freqDiscount;
+        if (null == theDiscount) {
+            return 0f;
+        }
+        else if (theDiscount.getIsFlat()) {
+            return theDiscount.getDiscount();
         }
         else {
-            return (freqDiscount / 100f) * this.basePrice;
+            return (theDiscount.getDiscount() / 100f) * this.basePrice;
         }
     }
 
@@ -119,10 +134,6 @@ public class Estimate {
             }
         }
         return ans;
-    }
-
-    private void calculateEstimate() {
-        this.estimate = this.basePrice - this.getDiscount() + this.getFees();
     }
 
 }
