@@ -96,5 +96,33 @@ public class DeliveryFeeEstimateTest {
     assertEquals(0f, estimate5m.getFees(), 0.001);
   }
 
+  // Update with new final price once discount is added
+  @Test
+  public void FinalPriceFlatFeeTest() {
+    assertEquals(770f, estimate1flat.getFinalPrice(), 0.001);
+    assertEquals(760f, estimate2flat.getFinalPrice(), 0.001);
+    assertEquals(780f, estimate3flat.getFinalPrice(), 0.001);
+    assertEquals(765f, estimate4flat.getFinalPrice(), 0.001);
+    assertEquals(750f, estimate5flat.getFinalPrice(), 0.001);
+  }
 
+  // Update with new final price once discount is added
+  @Test
+  public void FinalPricePercentageFeeTest() {
+    assertEquals(900f,   estimate1.getFinalPrice(), 0.001);
+    assertEquals(825f,   estimate2.getFinalPrice(), 0.001);
+    assertEquals(975f,   estimate3.getFinalPrice(), 0.001);
+    assertEquals(862.5f, estimate4.getFinalPrice(), 0.001);
+    assertEquals(750f,   estimate5.getFinalPrice(), 0.001);
+  }
+
+  // Update with new final price once discount is added
+  @Test
+  public void FinalPriceFrequencyFeeTest() {
+    assertEquals(900f,   estimate1m.getFinalPrice(), 0.001);
+    assertEquals(760f,   estimate2m.getFinalPrice(), 0.001);
+    assertEquals(780f,   estimate3m.getFinalPrice(), 0.001);
+    assertEquals(862.5f, estimate4m.getFinalPrice(), 0.001);
+    assertEquals(750f,   estimate5m.getFinalPrice(), 0.001);
+  }
 }
