@@ -7,7 +7,7 @@ public class DeliveryFee {
 
   public DeliveryFee(float fee, Frequency frequency, boolean flat) {
     if(fee < 0.0f) {
-      throw new IllegalArgumentException("Can't be negative");
+      throw new IllegalArgumentException("Fee cannot be negative!");
     } else {
       this.fee = fee;
     }

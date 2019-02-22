@@ -74,7 +74,7 @@ public class DeliveryFeeEstimateTest {
   @Test
   public void testNegativeDeliveryFee(){
     exception.expect(IllegalArgumentException.class);
-    exception.expectMessage("Can't be negative");
+    exception.expectMessage("Fee cannot be negative!");
     new DeliveryFee(-1.0f, Frequency.WEEKDAY, false);
   }
 
