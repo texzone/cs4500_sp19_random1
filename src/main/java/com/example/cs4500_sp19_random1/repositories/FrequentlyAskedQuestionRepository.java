@@ -13,6 +13,12 @@ public interface FrequentlyAskedQuestionRepository extends
 
   @Query(value="SELECT frequentQuestions FROM FrequentlyAskedQuestion frequentQuestions")
   public List<FrequentlyAskedQuestion> findAllFrequentQuestions();
+
+  @Query(value="SELECT frequentQuestions FROM FrequentlyAskedQuestion frequentQuestions WHERE frequentQuestions.title=:title " +
+          "AND frequentQuestions.question=:question")
+  public List<FrequentlyAskedQuestion> filterAllFrequentQuestions(@Param("title") String title,
+                                                                  @Param("question") String question);
+
   @Query(value="SELECT frequentQuestions FROM FrequentlyAskedQuestion frequentQuestions WHERE frequentQuestions.id=:id")
   public FrequentlyAskedQuestion findFAQById(@Param("id") Integer id);
 
