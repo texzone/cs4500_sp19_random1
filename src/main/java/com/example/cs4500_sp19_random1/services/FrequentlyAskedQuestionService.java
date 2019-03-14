@@ -36,6 +36,12 @@ public class FrequentlyAskedQuestionService {
   public List<FrequentlyAskedQuestion> filterAllFAQs(@RequestParam("title") String title,
                                                      @RequestParam("question") String question) {
 
+    if(title == "") {
+      title = null;
+    }
+    if(question == "") {
+      question = null;
+    }
     return frequentlyAskedQuestionRepository.filterAllFrequentQuestions(title, question);
   }
 
