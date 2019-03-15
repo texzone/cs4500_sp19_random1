@@ -24,11 +24,22 @@ public class FrequentlyAskedQuestionServiceTest {
   @Mock
   private FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository;
 
+  FrequentlyAskedQuestion faq2 = new FrequentlyAskedQuestion();
+
+   FrequentlyAskedQuestion faqChanged = new FrequentlyAskedQuestion();
+
   @Before
   public void setUp() {
     FrequentlyAskedQuestion frequentlyAskedQuestion1 = new FrequentlyAskedQuestion();
     frequentlyAskedQuestion1.setTitle("Q1");
     frequentlyAskedQuestion1.setQuestion("What is question one?");
+
+
+    faq2.setTitle("Q2") ;
+    faq2.setQuestion("What is question two?");
+
+    faqChanged.setTitle("Q3");
+    faqChanged.setQuestion("Question three");
 
     List<FrequentlyAskedQuestion> filterResults = new ArrayList<>();
     filterResults.add(frequentlyAskedQuestion1);
@@ -38,6 +49,9 @@ public class FrequentlyAskedQuestionServiceTest {
     Mockito.when(frequentlyAskedQuestionRepository.filterAllFrequentQuestions("Q1",
             "What is question one?")).
             thenReturn(filterResults);
+    Mockito.when(frequentlyAskedQuestionRepository.save(faq2)).
+            thenReturn(faq2);
+    Mockito.when(frequentlyAskedQuestionRepository.findFAQById(2)).thenReturn(faq2);
   }
 
   @Test
@@ -53,5 +67,23 @@ public class FrequentlyAskedQuestionServiceTest {
 
     assertEquals("Q1", foundFAQs.get(0).getTitle());
     assertEquals("What is question one?", foundFAQs.get(0).getQuestion());
+  }
+
+  @Test
+  public void createFAQTest() {
+    FrequentlyAskedQuestion frequentlyAskedQuestion1 = new FrequentlyAskedQuestion();
+    frequentlyAskedQuestion1.setTitle("Q2");
+    frequentlyAskedQuestion1.setQuestion("What is question two?");
+    FrequentlyAskedQuestion faqAdded = frequentlyAskedQuestionService.createFAQ(faq2);
+    assertEquals("Q2", faqAdded.getTitle());
+    assertEquals("What is question two?", faqAdded.getQuestion());
+    assertEquals(faqAdded, faq2);
+  }
+
+  @Test
+  public void updateFAQTest() {
+   FrequentlyAskedQuestion updatedFAQ = frequentlyAskedQuestionService.updateFAQ(2, faqChanged);
+   assertEquals("Q3" ,updatedFAQ.getTitle());
+   assertEquals("Question three" ,updatedFAQ.getQuestion());
   }
 }
