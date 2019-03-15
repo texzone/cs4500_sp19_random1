@@ -96,10 +96,11 @@ public class FrequentlyAskedQuestionService {
     }
     return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
   }
-  @DeleteMapping("/api/faqs/{faqId}")
+  @DeleteMapping("/api/faqs/delete/{faqId}")
   public void deleteFrequentlyAskedQuestion(
           @PathVariable("faqId") Integer id) {
-    frequentlyAskedQuestionRepository.deleteById(id);
+    frequentlyAskedQuestionRepository.deleteFrequentlyAskedQuestion(id);
+
   }
 
   @DeleteMapping("/api/faqs/{faqId}/answers/{ansId}")
