@@ -13,8 +13,8 @@ public class ServiceProvider extends User {
   @OneToMany(mappedBy = "providers")
   private List<Service> services;
 
-  public ServiceProvider(Integer i, String username, String firstName, String lastName, List<Service> services) {
-    super(i, username, firstName, lastName);
+  public ServiceProvider(Integer i,  String username, String password, String firstName, String lastName, List<Service> services) {
+    super(i, username, password, firstName, lastName);
     this.services = services;
   }
 
