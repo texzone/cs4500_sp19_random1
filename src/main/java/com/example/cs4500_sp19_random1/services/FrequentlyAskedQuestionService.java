@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -29,6 +30,19 @@ public class FrequentlyAskedQuestionService {
   @GetMapping("/api/faqs")
   public List<FrequentlyAskedQuestion> findAllFAQs() {
     return frequentlyAskedQuestionRepository.findAllFrequentQuestions();
+  }
+
+  @GetMapping("/api/faqs/filter")
+  public List<FrequentlyAskedQuestion> filterAllFAQs(@RequestParam("title") String title,
+                                                     @RequestParam("question") String question) {
+
+    if(title == "") {
+      title = null;
+    }
+    if(question == "") {
+      question = null;
+    }
+    return frequentlyAskedQuestionRepository.filterAllFrequentQuestions(title, question);
   }
 
   @GetMapping("/api/faqs/{faqId}")
@@ -82,10 +96,11 @@ public class FrequentlyAskedQuestionService {
     }
     return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
   }
-  @DeleteMapping("/api/faqs/{faqId}")
+  @DeleteMapping("/api/faqs/delete/{faqId}")
   public void deleteFrequentlyAskedQuestion(
           @PathVariable("faqId") Integer id) {
-    frequentlyAskedQuestionRepository.deleteById(id);
+    frequentlyAskedQuestionRepository.deleteFrequentlyAskedQuestion(id);
+
   }
 
   @DeleteMapping("/api/faqs/{faqId}/answers/{ansId}")
