@@ -13,15 +13,16 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
+    private String role;
     @OneToMany(mappedBy = "provider")
     private List<ServiceAnswer> serviceAnswers;
     @OneToMany(mappedBy = "user")
@@ -100,5 +101,12 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getRole() {
+      return role;
+    }
+    public void setRole(String role) {
+      this.role = role;
     }
 }

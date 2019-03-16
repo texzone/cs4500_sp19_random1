@@ -12,7 +12,7 @@ import com.example.cs4500_sp19_random1.models.User;
 import com.example.cs4500_sp19_random1.repositories.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins="*")
 public class UserService {
   @Autowired
   UserRepository userRepository;
