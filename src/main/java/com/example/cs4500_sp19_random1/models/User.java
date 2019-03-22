@@ -34,6 +34,14 @@ public class User {
         super();
     }
 
+    public User(Integer id, String username, String password, String firstName, String lastName) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     // Allows mapping a JSON request with `{"id": id}` as the user field to a User with
     // that id.
     @JsonCreator
