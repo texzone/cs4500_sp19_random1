@@ -12,100 +12,88 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 @Entity
 @Table(name="users")
 public class User {
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String role;
-    @OneToMany(mappedBy = "provider")
-    private List<ServiceAnswer> serviceAnswers;
-    @OneToMany(mappedBy = "user")
-    private List<FrequentlyAskedAnswer> frequentlyAskedAnswers;
-    @ManyToMany
-    @JsonIgnore
-    @JoinTable(
-            name = "PROVIDERS_SERVICES",
-            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "SERVICE_ID", referencedColumnName = "ID"))
-    private List<Service> services;
 
+    // Need an explicit default now
     public User() {
+        super();
     }
 
-    public User(Integer id, String username, String password, String firstName, String lastName) {
+    // Allows mapping a JSON request with `{"id": id}` as the user field to a User with
+    // that id.
+    @JsonCreator
+    public User(@JsonProperty("id") int id) {
+        super();
         this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
     }
 
-    public List<Service> getServices() {
-        return services;
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private List<FrequentlyAskedAnswer> frequentlyAskedAnswer;
+
+    public List<FrequentlyAskedAnswer> getFrequentlyAskedAnswer() {
+        return frequentlyAskedAnswer;
     }
 
-    public void setServices(List<Service> services) {
-        this.services = services;
+    protected User setFrequentlyAskedAnswer(List<FrequentlyAskedAnswer> answers) {
+        this.frequentlyAskedAnswer = answers;
+        return this;
     }
 
-    public List<FrequentlyAskedAnswer> getFrequentlyAskedAnswers() {
-        return frequentlyAskedAnswers;
+    public int getId() {
+        return id;
     }
-
-    public void setFrequentlyAskedAnswers(List<FrequentlyAskedAnswer> frequentlyAskedAnswers) {
-        this.frequentlyAskedAnswers = frequentlyAskedAnswers;
+    public User setId(int id) {
+        this.id = id;
+        return this;
     }
-
     public String getUsername() {
         return username;
     }
-
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+        return this;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
+    public String getRole() {
+        return role;
+    }
+    public User setRole(String role) {
+        this.role = role;
+        return this;
+    }
     public String getFirstName() {
         return firstName;
     }
-
-    public void setFirstName(String firstName) {
+    public User setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
-
     public String getLastName() {
         return lastName;
     }
-
-    public void setLastName(String lastName) {
+    public User setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-      return role;
-    }
-    public void setRole(String role) {
-      this.role = role;
+        return this;
     }
 }
