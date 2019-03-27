@@ -24,7 +24,11 @@ public class FrequentlyAskedAnswer {
     private User user;
 
     public String getQuestion() {
-        return frequentlyAskedQuestion.getQuestion();
+        if(frequentlyAskedQuestion == null) {
+            return "";
+        } else {
+            return frequentlyAskedQuestion.getQuestion();
+        }
     }
     public User getUser() {
         return user;
