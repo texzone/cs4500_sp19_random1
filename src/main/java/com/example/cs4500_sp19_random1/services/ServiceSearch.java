@@ -11,63 +11,94 @@ public class ServiceSearch {
     public List<User> searchForProviders(Service service, SearchCriteria criteria) {
         // Get the list of users which have the selected service answer
         // max, and true and false
-        ServiceQuestion quest1 = criteria.getPredicates().get(0).getQuestion();
-        ServiceAnswer answ1 = criteria.getPredicates().get(0).getAnswer();
+        ServiceQuestion howManyRoomsQuestion = criteria.getPredicates().get(0).getQuestion();
+        ServiceQuestion havePetsQuestion = criteria.getPredicates().get(1).getQuestion();
+
         List<ServiceProvider> prov1 = new ArrayList<>();
         List<User> users = new ArrayList<>();
         service.getProviders().forEach(serviceProvider -> {
-            if (hasTheQuestion(serviceProvider.getServiceAnswers(), quest1)) {
+            if (hasTheQuestion(serviceProvider.getServiceAnswers(), howManyRoomsQuestion) && hasTheQuestion(serviceProvider.getServiceAnswers(), havePetsQuestion)) {
                 users.add(serviceProvider);
                 prov1.add(serviceProvider);
             }
         });
+
         return users;
     }
 
-
     public Map<ServiceProvider, Integer> getSearchResult(Service service, SearchCriteria criteria) {
-        ServiceQuestion quest1 = criteria.getPredicates().get(0).getQuestion();
-        ServiceAnswer answ1 = criteria.getPredicates().get(0).getAnswer();
-        List<ServiceProvider> prov1 = new ArrayList<>();
+        ServiceQuestion howManyRoomsQuestion = criteria.getPredicates().get(0).getQuestion();
+        ServiceAnswer howManyRoomsAnswer = criteria.getPredicates().get(0).getAnswer();
+
+        ServiceQuestion havePetsQuestion = criteria.getPredicates().get(1).getQuestion();
+        ServiceAnswer havePetsAnswer = criteria.getPredicates().get(1).getAnswer();
+
+        List<ServiceProvider> providers = new ArrayList<>();
         service.getProviders().forEach(serviceProvider -> {
-            if (hasTheQuestion(serviceProvider.getServiceAnswers(), quest1)) {
-                prov1.add(serviceProvider);
+            if (hasTheQuestion(serviceProvider.getServiceAnswers(), howManyRoomsQuestion) && hasTheQuestion(serviceProvider.getServiceAnswers(), havePetsQuestion)) {
+                providers.add(serviceProvider);
             }
         });
-        return filterServiceProviders(prov1, answ1, quest1);
+
+        Map<ServiceProvider, Integer> rangeQuestionFilter = filterProvidersByRangeQuestion(providers, howManyRoomsAnswer, howManyRoomsQuestion);
+
+        Map<ServiceProvider, Integer> havePetsProviderMap = filterProvidersByTrueFalseQuestion(providers, havePetsAnswer, havePetsQuestion);
+
+        Map<ServiceProvider, Integer> result = new HashMap<>();
+
+        for (ServiceProvider provider : providers) {
+            Integer rangeQuestionScore = rangeQuestionFilter.get(provider);
+            Integer trueFalseQuestionScore = havePetsProviderMap.get(provider);
+            if (rangeQuestionScore != null && trueFalseQuestionScore != null) {
+                result.put(provider, rangeQuestionScore + trueFalseQuestionScore);
+            } else if (rangeQuestionScore == null && trueFalseQuestionScore != null) {
+                result.put(provider, trueFalseQuestionScore);
+            } else if (rangeQuestionScore != null) {
+                result.put(provider, rangeQuestionScore);
+            }
+        }
+
+        return result ;
     }
 
 
-    public Map<ServiceProvider, Integer> filterServiceProviders(List<ServiceProvider> providers, ServiceAnswer answer
-    ,ServiceQuestion question) {
+    private Map<ServiceProvider, Integer> filterProvidersByTrueFalseQuestion(List<ServiceProvider> providers, ServiceAnswer answer
+            , ServiceQuestion question) {
         Map<ServiceProvider, Integer> map = new HashMap<>();
         providers.forEach(provider -> {
-            ServiceAnswer serv1 = getAnswerByQuestion(provider.getServiceAnswers(), question);
-            if (serv1.getMaxRangeAnswer() <= answer.getMaxRangeAnswer() &&
-            serv1.getMinRangeAnswer() >= answer.getMinRangeAnswer()) {
+            ServiceAnswer serviceAnswer = getAnswerByQuestion(provider.getServiceAnswers(), question);
+            if (serviceAnswer.getTrueFalseAnswer() == answer.getTrueFalseAnswer()) {
                 map.put(provider, 1);
             }
         });
         return map;
     }
 
-    public boolean hasTheQuestion(List<ServiceAnswer> answers, ServiceQuestion question) {
+    private Map<ServiceProvider, Integer> filterProvidersByRangeQuestion(List<ServiceProvider> providers, ServiceAnswer answer
+            , ServiceQuestion question) {
+        Map<ServiceProvider, Integer> map = new HashMap<>();
+        providers.forEach(provider -> {
+            ServiceAnswer serv1 = getAnswerByQuestion(provider.getServiceAnswers(), question);
+            if (serv1.getMaxRangeAnswer() <= answer.getMaxRangeAnswer() &&
+                    serv1.getMinRangeAnswer() >= answer.getMinRangeAnswer()) {
+                map.put(provider, 1);
+            }
+        });
+        return map;
+    }
+
+    private boolean hasTheQuestion(List<ServiceAnswer> answers, ServiceQuestion question) {
         for (ServiceAnswer serviceAnswer : answers) {
-            if (serviceAnswer.getServiceQuestion().getQuestion()
-                    == question.getQuestion()) {
+            if (serviceAnswer.getServiceQuestion().getQuestion().equals(question.getQuestion())) {
                 return true;
-            } else {
-                return false;
             }
         }
         return false;
     }
-    public ServiceAnswer getAnswerByQuestion(List<ServiceAnswer> answers, ServiceQuestion question) {
+    private ServiceAnswer getAnswerByQuestion(List<ServiceAnswer> answers, ServiceQuestion question) {
         for (ServiceAnswer serviceAnswer : answers) {
-            if (serviceAnswer.getServiceQuestion().getQuestion() == question.getQuestion()) {
+            if (serviceAnswer.getServiceQuestion().getQuestion().equals(question.getQuestion())) {
                 return serviceAnswer;
-            } else {
-                return null;
             }
         }
         return null;
