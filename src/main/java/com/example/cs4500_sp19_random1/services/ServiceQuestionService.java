@@ -28,8 +28,7 @@ public class ServiceQuestionService {
 
     @GetMapping("/service-questions/{id}")
     public ServiceQuestion findById(@PathVariable Integer id) {
-        Optional<ServiceQuestion> byId = serviceQuestionRepository.findById(id);
-        return byId.orElse(null);
+        return serviceQuestionRepository.findOneById(id);
     }
 
     @PutMapping("/service-questions/{id}")
