@@ -3,19 +3,36 @@ package com.example.cs4500_sp19_random1.models;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
 
 
 @Entity
 @Table(name = "service_providers")
-public class ServiceProvider extends User {
+public class ServiceProvider {
+  @Id
+  @GeneratedValue(strategy= GenerationType.IDENTITY)
+  private Integer id;
   @OneToMany(mappedBy = "providers")
   private List<Service> services;
+  private String name;
+  private String zipCode;
 
-  public ServiceProvider(Integer i,  String username, String password, String firstName, String lastName, List<Service> services) {
-    super(i, username, password, firstName, lastName);
-    this.services = services;
+  public String getName() {return this.name;}
+
+  public String getZipCode() {
+    return zipCode;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setZipCode(String zipCode) {
+    this.zipCode = zipCode;
   }
 
   public List<Service> getServices() {
