@@ -21,6 +21,14 @@ public class ServiceProvider {
   private String name;
   private String zipCode;
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public Integer getId() {
+    return this.id;
+  }
+
   public String getName() {return this.name;}
 
   public String getZipCode() {
