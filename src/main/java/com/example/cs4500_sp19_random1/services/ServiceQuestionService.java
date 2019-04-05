@@ -23,12 +23,13 @@ public class ServiceQuestionService {
 
     @GetMapping("/service-questions")
     public List<ServiceQuestion> findAll() {
-        return (List<ServiceQuestion>) serviceQuestionRepository.findAll();
+        return serviceQuestionRepository.findAllServiceQuestion();
     }
 
     @GetMapping("/service-questions/{id}")
     public ServiceQuestion findById(@PathVariable Integer id) {
-        return serviceQuestionRepository.findOneById(id);
+        return serviceQuestionRepository.findServiceQuestionById(id);
+
     }
 
     @PutMapping("/service-questions/{id}")
