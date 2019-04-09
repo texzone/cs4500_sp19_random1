@@ -28,6 +28,7 @@ public class Service {
             inverseJoinColumns=@JoinColumn(name="USER_ID", referencedColumnName="ID"))
     private List<ServiceProvider> providers;
     @ManyToMany(mappedBy="services")
+    @JsonIgnore
     private List<ServiceCategory> serviceCategories;
     public List<ServiceCategory> getServiceCategories() {
         return serviceCategories;

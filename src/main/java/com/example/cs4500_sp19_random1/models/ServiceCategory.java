@@ -6,6 +6,7 @@ package com.example.cs4500_sp19_random1.models;
  */
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import java.util.ArrayList;
 
 
 import javax.persistence.Entity;
@@ -26,12 +27,11 @@ public class ServiceCategory {
     private Integer id;
     private String title;
     @ManyToMany
-    @JsonIgnore
     @JoinTable(
             name="CATEGORIES_SERVICES",
             joinColumns=@JoinColumn(name="CATEGORY_ID", referencedColumnName="ID"),
             inverseJoinColumns=@JoinColumn(name="SERVICE_ID", referencedColumnName="ID"))
-    private List<Service> services;
+    private List<Service> services = new ArrayList<Service>();
     public Integer getId() {
         return id;
     }
