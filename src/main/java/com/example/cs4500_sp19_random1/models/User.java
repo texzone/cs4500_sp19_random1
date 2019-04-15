@@ -108,12 +108,4 @@ public class User {
     public void setRole(String role) {
       this.role = role;
     }
-
-    public List<ServiceAnswer> getServiceAnswers() {
-        return serviceAnswers;
-    }
-
-    public void setServiceAnswers(List<ServiceAnswer> serviceAnswers) {
-        this.serviceAnswers = serviceAnswers;
-    }
 }
