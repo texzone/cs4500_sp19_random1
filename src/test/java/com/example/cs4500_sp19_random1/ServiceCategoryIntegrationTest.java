@@ -25,7 +25,7 @@ import com.example.cs4500_sp19_random1.repositories.ServiceCategoryRepository;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment=WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 public class ServiceCategoryIntegrationTest {
     @LocalServerPort
     private int port;
@@ -33,10 +33,10 @@ public class ServiceCategoryIntegrationTest {
     private TestRestTemplate rt;
     @Autowired
     private ServiceCategoryRepository scr;
+
     private ServiceCategory testCat = null;
     @Before
     public void setup() {
-        port = 8080;
         testCat = new ServiceCategory();
         testCat.setId(123);
         testCat.setTitle("Pet Services");
@@ -58,7 +58,7 @@ public class ServiceCategoryIntegrationTest {
         
 
         this.rt.put(
-                "http://localhost:8080/api/categories/" + svcCat2.getId(),
+                "http://localhost:" + Integer.toString(this.port) + "/api/categories/" + svcCat2.getId(),
                 svcCat);
 
         svcCat = scr.findServiceCategoryById(svcCat2.getId());
@@ -73,7 +73,7 @@ public class ServiceCategoryIntegrationTest {
         svcCat.setTitle("Service Category One");
         ServiceCategory savedSvcCat = scr.save(svcCat);
 
-        this.rt.delete("http://localhost:8080/api/categories/" + savedSvcCat.getId());
+        this.rt.delete("http://localhost:" + Integer.toString(this.port) + "/api/categories/" + savedSvcCat.getId());
         ServiceCategory deletedSvcCat = scr.findServiceCategoryById(savedSvcCat.getId());
         assertEquals(deletedSvcCat, null);
     }
@@ -85,7 +85,7 @@ public class ServiceCategoryIntegrationTest {
         svcCat.setTitle("Service Category One");
 
         ServiceCategory createdSvcCat = (ServiceCategory) rt.postForObject(
-                "http://localhost:8080/api/categories/",
+                "http://localhost:" + Integer.toString(this.port) + "/api/categories/",
                 svcCat,
                 ServiceCategory.class);
 
