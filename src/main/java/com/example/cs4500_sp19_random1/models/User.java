@@ -1,28 +1,27 @@
 package com.example.cs4500_sp19_random1.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.*;
-
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String role;
+
+    @OneToMany(mappedBy = "reviewer")
+    private List<Review> reviewsOfMe;
+    @OneToMany(mappedBy = "reviewed")
+    private List<Review> myReviewsOfOthers;
+
     @OneToMany(mappedBy = "provider")
     private List<ServiceAnswer> serviceAnswers;
     @OneToMany(mappedBy = "user")
@@ -44,6 +43,30 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public List<Review> getReviewsOfMe() {
+        return reviewsOfMe;
+    }
+
+    public void setReviewsOfMe(List<Review> reviewsOfMe) {
+        this.reviewsOfMe = reviewsOfMe;
+    }
+
+    public List<Review> getMyReviewsOfOthers() {
+        return myReviewsOfOthers;
+    }
+
+    public void setMyReviewsOfOthers(List<Review> myReviewsOfOthers) {
+        this.myReviewsOfOthers = myReviewsOfOthers;
+    }
+
+    public List<ServiceAnswer> getServiceAnswers() {
+        return serviceAnswers;
+    }
+
+    public void setServiceAnswers(List<ServiceAnswer> serviceAnswers) {
+        this.serviceAnswers = serviceAnswers;
     }
 
     public List<Service> getServices() {
@@ -103,9 +126,22 @@ public class User {
     }
 
     public String getRole() {
-      return role;
+        return role;
     }
+
     public void setRole(String role) {
-      this.role = role;
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
