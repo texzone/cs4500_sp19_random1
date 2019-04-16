@@ -116,4 +116,5 @@ public class User {
     public void setServiceAnswers(List<ServiceAnswer> serviceAnswers) {
         this.serviceAnswers = serviceAnswers;
     }
+
 }
