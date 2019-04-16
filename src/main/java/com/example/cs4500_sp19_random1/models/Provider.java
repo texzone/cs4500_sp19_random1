@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.example.cs4500_sp19_random1.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
