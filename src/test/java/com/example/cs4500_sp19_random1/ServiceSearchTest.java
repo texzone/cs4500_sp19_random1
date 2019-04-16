@@ -68,29 +68,33 @@ public class ServiceSearchTest {
 
         listServ1.add(serv1);
 
-        ServiceProvider providerBob = new ServiceProvider(1, "bob", "abc",
+        User providerBobUser = new User(1, "bob", "abc",
                 "bobby", "john", listServ1);
+        ServiceProvider providerBob = new ServiceProvider();
+        providerBob.setUser(providerBobUser);
 
-        ServiceProvider providerMarie = new ServiceProvider(1, "marie", "abc",
+        User providerMarieUser = new User(1, "marie", "abc",
                 "marie", "jane", listServ1);
+        ServiceProvider providerMarie = new ServiceProvider();
+        providerMarie.setUser(providerMarieUser);
 
         //SETTING ANSWERS
-        providerBob.setServiceAnswers(new ArrayList<>());
-        providerBob.getServiceAnswers().add(bobAnswerHowManyRooms);
-        providerBob.getServiceAnswers().add(bobAnswerHavePets);
+        providerBob.getUser().setServiceAnswers(new ArrayList<>());
+        providerBob.getUser().getServiceAnswers().add(bobAnswerHowManyRooms);
+        providerBob.getUser().getServiceAnswers().add(bobAnswerHavePets);
 
-        providerMarie.setServiceAnswers(new ArrayList<>());
-        providerMarie.getServiceAnswers().add(marieAnswerHowManyRooms);
-        providerMarie.getServiceAnswers().add(marieAnswerHavePets);
+        providerMarie.getUser().setServiceAnswers(new ArrayList<>());
+        providerMarie.getUser().getServiceAnswers().add(marieAnswerHowManyRooms);
+        providerMarie.getUser().getServiceAnswers().add(marieAnswerHavePets);
 
         serv1.getProviders().add(providerBob);
         serv1.getProviders().add(providerMarie);
         SearchCriteria serCri1 = new SearchCriteria(listPred1);
-        List<User> foundUsersByCriteria = servSer1.searchForProviders(serv1, serCri1);
+        List<Provider> foundUsersByCriteria = servSer1.searchForProviders(serv1, serCri1);
         assertEquals("", 2, foundUsersByCriteria.size());
 
-        for (User foundUsersByCriterion : foundUsersByCriteria) {
-            System.out.println("User that match the questions & answers criteria: " + foundUsersByCriterion.getFirstName());
+        for (Provider foundUsersByCriterion : foundUsersByCriteria) {
+            System.out.println("User that match the questions & answers criteria: " + foundUsersByCriterion.getUser().getFirstName());
         }
 
     }
@@ -153,20 +157,24 @@ public class ServiceSearchTest {
 
         listServ1.add(serv1);
 
-        ServiceProvider providerBob = new ServiceProvider(1, "bob", "abc",
+        User providerBobUser = new User(1, "bob", "abc",
                 "bobby", "john", listServ1);
+        ServiceProvider providerBob = new ServiceProvider();
+        providerBob.setUser(providerBobUser);
 
-        ServiceProvider providerMarie = new ServiceProvider(1, "marie", "abc",
+        User providerMarieUser = new User(1, "marie", "abc",
                 "marie", "jane", listServ1);
+        ServiceProvider providerMarie = new ServiceProvider();
+        providerMarie.setUser(providerMarieUser);
 
         //SETTING ANSWERS
-        providerBob.setServiceAnswers(new ArrayList<>());
-        providerBob.getServiceAnswers().add(bobAnswerHowManyRooms);
-        providerBob.getServiceAnswers().add(bobAnswerHavePets);
+        providerBob.getUser().setServiceAnswers(new ArrayList<>());
+        providerBob.getUser().getServiceAnswers().add(bobAnswerHowManyRooms);
+        providerBob.getUser().getServiceAnswers().add(bobAnswerHavePets);
 
-        providerMarie.setServiceAnswers(new ArrayList<>());
-        providerMarie.getServiceAnswers().add(marieAnswerHowManyRooms);
-        providerMarie.getServiceAnswers().add(marieAnswerHavePets);
+        providerMarie.getUser().setServiceAnswers(new ArrayList<>());
+        providerMarie.getUser().getServiceAnswers().add(marieAnswerHowManyRooms);
+        providerMarie.getUser().getServiceAnswers().add(marieAnswerHavePets);
 
         serv1.getProviders().add(providerBob);
         serv1.getProviders().add(providerMarie);
@@ -175,7 +183,7 @@ public class ServiceSearchTest {
         assertEquals("", 2, searchResult.size());
 
         searchResult.forEach((serviceProvider, integer) -> {
-            System.out.println("User: " + serviceProvider.getFirstName() + ", Scored: " + integer);
+            System.out.println("User: " + serviceProvider.getUser().getFirstName() + ", Scored: " + integer);
         });
 
     }

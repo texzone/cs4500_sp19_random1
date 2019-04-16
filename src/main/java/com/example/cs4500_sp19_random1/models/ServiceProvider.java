@@ -1,28 +1,25 @@
 package com.example.cs4500_sp19_random1.models;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import java.util.List;
 
 
 @Entity
-@Table(name = "service_providers")
-public class ServiceProvider extends User {
-  @OneToMany(mappedBy = "providers")
-  private List<Service> services;
+public class ServiceProvider extends Provider {
 
-  public ServiceProvider(Integer i,  String username, String password, String firstName, String lastName, List<Service> services) {
-    super(i, username, password, firstName, lastName);
-    this.services = services;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Service service;
+
+  public Service getService() {
+    return service;
   }
 
-  public List<Service> getServices() {
-    return this.services;
-  }
-
-  public void setServices(List<Service> services) {
-    this.services = services;
+  public void setService(Service service) {
+    this.service = service;
   }
 }

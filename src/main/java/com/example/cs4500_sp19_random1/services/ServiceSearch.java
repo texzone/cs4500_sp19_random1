@@ -8,16 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 public class ServiceSearch {
-    public List<User> searchForProviders(Service service, SearchCriteria criteria) {
+    public List<Provider> searchForProviders(Service service, SearchCriteria criteria) {
         // Get the list of users which have the selected service answer
         // max, and true and false
         ServiceQuestion howManyRoomsQuestion = criteria.getPredicates().get(0).getQuestion();
         ServiceQuestion havePetsQuestion = criteria.getPredicates().get(1).getQuestion();
 
         List<ServiceProvider> prov1 = new ArrayList<>();
-        List<User> users = new ArrayList<>();
+        List<Provider> users = new ArrayList<>();
         service.getProviders().forEach(serviceProvider -> {
-            if (hasTheQuestion(serviceProvider.getServiceAnswers(), howManyRoomsQuestion) && hasTheQuestion(serviceProvider.getServiceAnswers(), havePetsQuestion)) {
+            if (hasTheQuestion(serviceProvider.getUser().getServiceAnswers(), howManyRoomsQuestion) && hasTheQuestion(serviceProvider.getUser().getServiceAnswers(), havePetsQuestion)) {
                 users.add(serviceProvider);
                 prov1.add(serviceProvider);
             }
@@ -35,7 +35,7 @@ public class ServiceSearch {
 
         List<ServiceProvider> providers = new ArrayList<>();
         service.getProviders().forEach(serviceProvider -> {
-            if (hasTheQuestion(serviceProvider.getServiceAnswers(), howManyRoomsQuestion) && hasTheQuestion(serviceProvider.getServiceAnswers(), havePetsQuestion)) {
+            if (hasTheQuestion(serviceProvider.getUser().getServiceAnswers(), howManyRoomsQuestion) && hasTheQuestion(serviceProvider.getUser().getServiceAnswers(), havePetsQuestion)) {
                 providers.add(serviceProvider);
             }
         });
@@ -66,7 +66,7 @@ public class ServiceSearch {
             , ServiceQuestion question) {
         Map<ServiceProvider, Integer> map = new HashMap<>();
         providers.forEach(provider -> {
-            ServiceAnswer serviceAnswer = getAnswerByQuestion(provider.getServiceAnswers(), question);
+            ServiceAnswer serviceAnswer = getAnswerByQuestion(provider.getUser().getServiceAnswers(), question);
             if (serviceAnswer.getTrueFalseAnswer() == answer.getTrueFalseAnswer()) {
                 map.put(provider, 1);
             }
@@ -78,7 +78,7 @@ public class ServiceSearch {
             , ServiceQuestion question) {
         Map<ServiceProvider, Integer> map = new HashMap<>();
         providers.forEach(provider -> {
-            ServiceAnswer serv1 = getAnswerByQuestion(provider.getServiceAnswers(), question);
+            ServiceAnswer serv1 = getAnswerByQuestion(provider.getUser().getServiceAnswers(), question);
             if (serv1.getMaxRangeAnswer() <= answer.getMaxRangeAnswer() &&
                     serv1.getMinRangeAnswer() >= answer.getMinRangeAnswer()) {
                 map.put(provider, 1);
