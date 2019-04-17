@@ -15,6 +15,7 @@ import java.util.List;
 
 import com.example.cs4500_sp19_random1.services.ServiceService;
 import com.example.cs4500_sp19_random1.models.*;
+import com.example.cs4500_sp19_random1.dtos.ServiceDTO;
 import com.example.cs4500_sp19_random1.repositories.ServiceRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -41,7 +42,7 @@ public class ServiceTest {
 
     @Test
     public void testFindServiceById() throws Exception {
-        Service dogWalking = new Service();
+        ServiceDTO dogWalking = new ServiceDTO();
         dogWalking.setId(345);
         dogWalking.setServiceName("Dog Walking");
 
@@ -56,15 +57,15 @@ public class ServiceTest {
 
     @Test
     public void testFindAllServices() throws Exception {
-        Service dogWalking = new Service();
+        ServiceDTO dogWalking = new ServiceDTO();
         dogWalking.setId(345);
         dogWalking.setServiceName("Dog Walking");
 
-        Service physicalTraining = new Service();
+        ServiceDTO physicalTraining = new ServiceDTO();
         physicalTraining.setId(678);
         physicalTraining.setServiceName("Physical Training");
 
-        List<Service> services = Arrays.asList(dogWalking, physicalTraining);
+        List<ServiceDTO> services = Arrays.asList(dogWalking, physicalTraining);
         when(serviceService.findAllService()).thenReturn(services);
         this.mockMvc
             .perform(get("/api/services/"))
