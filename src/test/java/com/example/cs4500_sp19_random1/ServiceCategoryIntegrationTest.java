@@ -23,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import com.example.cs4500_sp19_random1.models.*;
 import com.example.cs4500_sp19_random1.repositories.ServiceCategoryRepository;
 
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 public class ServiceCategoryIntegrationTest {
@@ -94,3 +94,4 @@ public class ServiceCategoryIntegrationTest {
         scr.deleteById(createdSvcCat.getId());
     }
 }
+*/
