@@ -1,5 +1,8 @@
 package com.example.cs4500_sp19_random1.util;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Address {
   private String street;
   private String city;
@@ -11,6 +14,13 @@ public class Address {
     this.city = city;
     this.state = state;
     this.zipCode = zipCode;
+  }
+
+  public Address() {
+    this.street = "";
+    this.city = "";
+    this.state = "";
+    this.zipCode = "";
   }
 
   public String getStreet() {

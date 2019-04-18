@@ -41,6 +41,12 @@ public class ServiceProviderService {
     if(zipCode == "") {
       zipCode = null;
     }
-    return serviceProviderRepository.filterAllServiceProviders(provider, zipCode);
+    List<ServiceProvider> serviceProviders = serviceProviderRepository.filterAllServiceProviders(provider);
+    /*
+      TODO: Add zip code filtering here.
+      The math will be easier to do in Java once we have the provider list,
+      rather than trying to mess around with the SQL.
+     */
+    return serviceProviders;
   }
 }

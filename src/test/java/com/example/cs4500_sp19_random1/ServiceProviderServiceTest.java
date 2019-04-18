@@ -57,7 +57,7 @@ public class ServiceProviderServiceTest {
             thenReturn(serviceProvider);
     Mockito.when(serviceProviderRepository.findByServiceProvidername("TestProvider")).
             thenReturn(serviceProvider);
-    Mockito.when(serviceProviderRepository.filterAllServiceProviders("TestProvider", "02120"))
+    Mockito.when(serviceProviderRepository.filterAllServiceProviders("TestProvider"))
             .thenReturn(oneProvider);
 
   }

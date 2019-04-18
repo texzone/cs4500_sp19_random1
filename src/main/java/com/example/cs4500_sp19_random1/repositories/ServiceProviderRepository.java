@@ -17,10 +17,8 @@ public interface ServiceProviderRepository extends CrudRepository<ServiceProvide
   @Query(value = "SELECT provider FROM ServiceProvider provider WHERE provider.name=:username")
   public ServiceProvider findByServiceProvidername(@Param("username") String username);
 
-  @Query(value = "SELECT provider FROM ServiceProvider provider WHERE (:provider is null or provider.name LIKE :provider%) AND " +
-          "(:zipCode is null or provider.zipCode=:zipCode)")
-  public List<ServiceProvider> filterAllServiceProviders(@Param("provider") String provider,
-                                                         @Param("zipCode") String zipCode);
+  @Query(value = "SELECT provider FROM ServiceProvider provider WHERE (:provider is null or provider.name LIKE :provider%)")
+  public List<ServiceProvider> filterAllServiceProviders(@Param("provider") String provider);
 
   List<ServiceProvider> findAllByServiceId(Integer id);
 }
