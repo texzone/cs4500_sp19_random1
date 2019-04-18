@@ -2,13 +2,16 @@ package com.example.cs4500_sp19_random1.services;
 
 import com.example.cs4500_sp19_random1.models.ServiceProvider;
 import com.example.cs4500_sp19_random1.repositories.ServiceProviderRepository;
+import com.example.cs4500_sp19_random1.util.Address;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -49,4 +52,64 @@ public class ServiceProviderService {
      */
     return serviceProviders;
   }
+  @PutMapping("api/service_providers/{serviceProviderId}")
+  public ServiceProvider updateServiceProviderById(
+          @PathVariable("serviceProviderId") Integer id,
+          @RequestBody ServiceProvider serviceProviderUpdates) {
+    ServiceProvider serviceProvider = serviceProviderRepository.findServiceProviderById(id);
+
+    // General Section
+    String updatedName = serviceProviderUpdates.getName();
+    Integer updatedYear = serviceProviderUpdates.getYearFounded();
+    Integer updatedNumEmployees = serviceProviderUpdates.getNumEmployees();
+    String updatedEmail = serviceProviderUpdates.getBusinessEmail();
+
+    if(updatedName != null) { serviceProvider.setName(updatedName); }
+    if(updatedYear != null) { serviceProvider.setYearFounded(updatedYear); }
+    if(updatedNumEmployees != null) { serviceProvider.setNumEmployees(updatedNumEmployees); }
+    if(updatedEmail != null) { serviceProvider.setBusinessEmail(updatedEmail); }
+
+    // Business Address section
+
+    Address updatedAddress = serviceProviderUpdates.getBusinessAddress();
+    // Business Address section is optional, could be null altogether.
+    if(updatedAddress != null) {
+      Address currentAddress = serviceProvider.getBusinessAddress();
+      String updatedStreet = updatedAddress.getStreet();
+      String updatedCity = updatedAddress.getCity();
+      String updatedState = updatedAddress.getState();
+      String updatedZipCode = updatedAddress.getZipCode();
+      if (updatedStreet != null) {
+        currentAddress.setStreet(updatedStreet);
+      }
+      if (updatedCity != null) {
+        currentAddress.setCity(updatedCity);
+      }
+      if (updatedState != null) {
+        currentAddress.setState(updatedState);
+      }
+      if (updatedZipCode != null) {
+        currentAddress.setZipCode(updatedZipCode);
+      }
+      serviceProvider.setBusinessAddress(currentAddress);
+    }
+
+    // Payment methods section
+    serviceProvider.setCreditCard(serviceProviderUpdates.acceptsCreditCard());
+    serviceProvider.setCash(serviceProviderUpdates.acceptsCash());
+    serviceProvider.setCheck(serviceProviderUpdates.acceptsCheck());
+    serviceProvider.setVenmo(serviceProviderUpdates.acceptsVenmo());
+    serviceProvider.setSquare(serviceProviderUpdates.acceptsSquare());
+
+    // Social media section
+    String updatedFbLink = serviceProviderUpdates.getFacebookLink();
+    String updatedInstaLink = serviceProviderUpdates.getInstaLink();
+    String updatedTwitterLink = serviceProviderUpdates.getTwitterLink();
+    if(updatedFbLink != null) { serviceProvider.setFacebookLink(updatedFbLink); }
+    if(updatedInstaLink != null) { serviceProvider.setInstaLink(updatedInstaLink); }
+    if(updatedTwitterLink != null) { serviceProvider.setTwitterLink(updatedTwitterLink); }
+
+    return serviceProviderRepository.save(serviceProvider);
+  }
+
 }
