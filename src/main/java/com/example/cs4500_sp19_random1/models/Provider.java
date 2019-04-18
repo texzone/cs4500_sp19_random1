@@ -23,13 +23,13 @@ public class Provider {
     private boolean backgroundChecked;
     private String introduction;
 
+    @Embedded
     private Address businessAddress;
-    private String zipCode = businessAddress.getZipCode();
     private String businessEmail;
     private int yearFounded;
     private boolean creditCard;
     private boolean cash;
-    private boolean check;
+    private boolean paperCheck; // SQL doesn't like "check"
     private boolean venmo;
     private boolean paypal;
     private boolean square;
@@ -66,11 +66,11 @@ public class Provider {
     }
 
     public boolean acceptsCheck() {
-        return check;
+        return paperCheck;
     }
 
     public void setCheck(boolean check) {
-        this.check = check;
+        this.paperCheck = check;
     }
 
     public boolean acceptsVenmo() {
