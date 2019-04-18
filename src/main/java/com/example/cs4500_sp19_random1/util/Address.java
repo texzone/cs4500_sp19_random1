@@ -47,7 +47,7 @@ public class Address {
 
   @Override
   public String toString() {
-    return String.format("%1$s, %2$s %3$s, %4$s",
+    return String.format("%1$s, %2$s, %3$s %4$s",
             this.street,
             this.city,
             this.state,

@@ -24,6 +24,7 @@ public class Provider {
     private String introduction;
 
     private Address businessAddress;
+    private String zipCode = businessAddress.getZipCode();
     private String businessEmail;
     private int yearFounded;
     private boolean creditCard;
@@ -216,7 +217,7 @@ public class Provider {
         this.businessAddress = address;
     }
 
-    public String getBusinessZipCode() {
+    public String getZipCode() {
        return businessAddress.getZipCode();
     }
 

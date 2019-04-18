@@ -106,10 +106,10 @@ public class TestData {
     private void createProvider(ServiceProvider cristina, Service service) {
         cristina.setName("Cristina House Cleaning");
         cristina.setRating(4.4f);
-        cristina.setYearsInBusiness(7);
+        cristina.setYearFounded(2012);
         cristina.setHires(10);
         cristina.setPrice("$20");
-        cristina.setEmployees(2);
+        cristina.setNumEmployees(2);
         cristina.setIntroduction("Lorem ipsum dolor sit amet, consectetur adipiscing.");
         cristina.setService(service);
         serviceProviderRepository.save(cristina);
