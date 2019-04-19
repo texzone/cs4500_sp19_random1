@@ -101,11 +101,12 @@ public class ServiceProviderService {
     }
 
     // Payment methods section
-    serviceProvider.setCreditCard(serviceProviderUpdates.isAcceptingCreditCard());
-    serviceProvider.setCash(serviceProviderUpdates.isAcceptingCash());
-    serviceProvider.setCheck(serviceProviderUpdates.isAcceptingCheck());
-    serviceProvider.setVenmo(serviceProviderUpdates.isAcceptingVenmo());
-    serviceProvider.setSquare(serviceProviderUpdates.isAcceptingSquare());
+    Boolean updatedCreditCard = serviceProviderUpdates.isCreditCard();
+    serviceProvider.setCreditCard(updatedCreditCard);
+    serviceProvider.setCash(serviceProviderUpdates.isCash());
+    serviceProvider.setCheck(serviceProviderUpdates.isCheck());
+    serviceProvider.setVenmo(serviceProviderUpdates.isVenmo());
+    serviceProvider.setSquare(serviceProviderUpdates.isSquare());
 
     // Social media section
     String updatedFbLink = serviceProviderUpdates.getFacebookLink();

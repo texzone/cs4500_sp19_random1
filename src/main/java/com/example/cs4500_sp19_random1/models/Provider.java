@@ -49,7 +49,7 @@ public class Provider {
         this.businessEmail = businessEmail;
     }
 
-    public boolean isAcceptingCreditCard() {
+    public boolean isCreditCard() {
         return creditCard;
     }
 
@@ -57,7 +57,7 @@ public class Provider {
         this.creditCard = creditCard;
     }
 
-    public boolean isAcceptingCash() {
+    public boolean isCash() {
         return cash;
     }
 
@@ -65,7 +65,7 @@ public class Provider {
         this.cash = cash;
     }
 
-    public boolean isAcceptingCheck() {
+    public boolean isCheck() {
         return paperCheck;
     }
 
@@ -73,7 +73,7 @@ public class Provider {
         this.paperCheck = check;
     }
 
-    public boolean isAcceptingVenmo() {
+    public boolean isVenmo() {
         return venmo;
     }
 
@@ -81,7 +81,7 @@ public class Provider {
         this.venmo = venmo;
     }
 
-    public boolean isAcceptingPaypal() {
+    public boolean isPaypal() {
         return paypal;
     }
 
@@ -89,7 +89,7 @@ public class Provider {
         this.paypal = paypal;
     }
 
-    public boolean isAcceptingSquare() {
+    public boolean isSquare() {
         return square;
     }
 
