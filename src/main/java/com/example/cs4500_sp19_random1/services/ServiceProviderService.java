@@ -66,6 +66,7 @@ public class ServiceProviderService {
     Integer updatedYear = serviceProviderUpdates.getYearFounded();
     Integer updatedNumEmployees = serviceProviderUpdates.getNumEmployees();
     String updatedEmail = serviceProviderUpdates.getBusinessEmail();
+    Boolean updatedBackgroundCheck = serviceProviderUpdates.isBackgroundChecked();
 
     if(updatedName != null) { serviceProvider.setName(updatedName); }
     if(updatedYear != null) { serviceProvider.setYearFounded(updatedYear); }
@@ -74,6 +75,7 @@ public class ServiceProviderService {
     if(updatedHires != null) { serviceProvider.setHires(updatedHires); }
     if(updatedNumEmployees != null) { serviceProvider.setNumEmployees(updatedNumEmployees); }
     if(updatedEmail != null) { serviceProvider.setBusinessEmail(updatedEmail); }
+    if(updatedBackgroundCheck != null) { serviceProvider.setBackgroundChecked(updatedBackgroundCheck); }
 
     // Business Address section
 
@@ -102,11 +104,18 @@ public class ServiceProviderService {
 
     // Payment methods section
     Boolean updatedCreditCard = serviceProviderUpdates.isCreditCard();
-    serviceProvider.setCreditCard(updatedCreditCard);
-    serviceProvider.setCash(serviceProviderUpdates.isCash());
-    serviceProvider.setCheck(serviceProviderUpdates.isCheck());
-    serviceProvider.setVenmo(serviceProviderUpdates.isVenmo());
-    serviceProvider.setSquare(serviceProviderUpdates.isSquare());
+    Boolean updatedCash = serviceProviderUpdates.isCash();
+    Boolean updatedCheck = serviceProviderUpdates.isCheck();
+    Boolean updatedVenmo = serviceProviderUpdates.isVenmo();
+    Boolean updatedSquare = serviceProviderUpdates.isSquare();
+    Boolean updatedPaypal = serviceProviderUpdates.isPaypal();
+
+    if(updatedCreditCard != null) { serviceProvider.setCreditCard(updatedCreditCard); }
+    if(updatedCash != null) { serviceProvider.setCash(updatedCash); }
+    if(updatedCheck != null) { serviceProvider.setCheck(updatedCheck); }
+    if(updatedVenmo != null) { serviceProvider.setVenmo(updatedVenmo); }
+    if(updatedSquare != null) { serviceProvider.setSquare(updatedSquare); }
+    if(updatedPaypal != null) { serviceProvider.setPaypal(updatedPaypal); }
 
     // Social media section
     String updatedFbLink = serviceProviderUpdates.getFacebookLink();
