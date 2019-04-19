@@ -60,12 +60,18 @@ public class ServiceProviderService {
 
     // General Section
     String updatedName = serviceProviderUpdates.getName();
+    Float updatedRating = serviceProviderUpdates.getRating();
+    String updatedPrice = serviceProviderUpdates.getPrice();
+    Integer updatedHires = serviceProviderUpdates.getHires();
     Integer updatedYear = serviceProviderUpdates.getYearFounded();
     Integer updatedNumEmployees = serviceProviderUpdates.getNumEmployees();
     String updatedEmail = serviceProviderUpdates.getBusinessEmail();
 
     if(updatedName != null) { serviceProvider.setName(updatedName); }
     if(updatedYear != null) { serviceProvider.setYearFounded(updatedYear); }
+    if(updatedRating != null) { serviceProvider.setRating(updatedRating); }
+    if(updatedPrice != null) { serviceProvider.setPrice(updatedPrice); }
+    if(updatedHires != null) { serviceProvider.setHires(updatedHires); }
     if(updatedNumEmployees != null) { serviceProvider.setNumEmployees(updatedNumEmployees); }
     if(updatedEmail != null) { serviceProvider.setBusinessEmail(updatedEmail); }
 
@@ -95,11 +101,11 @@ public class ServiceProviderService {
     }
 
     // Payment methods section
-    serviceProvider.setCreditCard(serviceProviderUpdates.acceptsCreditCard());
-    serviceProvider.setCash(serviceProviderUpdates.acceptsCash());
-    serviceProvider.setCheck(serviceProviderUpdates.acceptsCheck());
-    serviceProvider.setVenmo(serviceProviderUpdates.acceptsVenmo());
-    serviceProvider.setSquare(serviceProviderUpdates.acceptsSquare());
+    serviceProvider.setCreditCard(serviceProviderUpdates.isAcceptingCreditCard());
+    serviceProvider.setCash(serviceProviderUpdates.isAcceptingCash());
+    serviceProvider.setCheck(serviceProviderUpdates.isAcceptingCheck());
+    serviceProvider.setVenmo(serviceProviderUpdates.isAcceptingVenmo());
+    serviceProvider.setSquare(serviceProviderUpdates.isAcceptingSquare());
 
     // Social media section
     String updatedFbLink = serviceProviderUpdates.getFacebookLink();
