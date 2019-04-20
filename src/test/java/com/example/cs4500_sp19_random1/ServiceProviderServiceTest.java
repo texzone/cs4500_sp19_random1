@@ -30,6 +30,7 @@ public class ServiceProviderServiceTest {
 
   ServiceProvider serviceProvider = new ServiceProvider();
   ServiceProvider serviceProvider2 = new ServiceProvider();
+  ServiceProvider serviceProvider3 = new ServiceProvider();
   List<ServiceProvider> allProviders = new ArrayList<>();
   List<ServiceProvider> oneProvider = new ArrayList<>();
 
@@ -37,7 +38,8 @@ public class ServiceProviderServiceTest {
   public void setUp() {
 
     Address serviceProviderAddress = new Address("22 Smith St.","Boston", "MA", "02120");
-    Address serviceProviderAddress2 = new Address("25 John St.","Boston", "MA", "12571");
+    Address serviceProviderAddress2 = new Address("25 John St.","Boston", "MA", "02121");
+    Address serviceProviderAddress3 = new Address("25 John St.","Boston", "MA", "02122");
 
     serviceProvider.setId(1);
     serviceProvider.setName("TestProvider");
@@ -45,9 +47,13 @@ public class ServiceProviderServiceTest {
     serviceProvider2.setId(2);
     serviceProvider2.setName("TestProvider2");
     serviceProvider2.setBusinessAddress(serviceProviderAddress2);
+    serviceProvider3.setId(3);
+    serviceProvider3.setName("TestProvider3");
+    serviceProvider3.setBusinessAddress(serviceProviderAddress3);
 
     allProviders.add(serviceProvider);
     allProviders.add(serviceProvider2);
+    allProviders.add(serviceProvider3);
 
     oneProvider.add(serviceProvider);
 
@@ -59,6 +65,10 @@ public class ServiceProviderServiceTest {
             thenReturn(serviceProvider);
     Mockito.when(serviceProviderRepository.filterAllServiceProviders("TestProvider"))
             .thenReturn(oneProvider);
+    Mockito.when(serviceProviderRepository.filterAllServiceProviders("TestProvider"))
+            .thenReturn(oneProvider);
+    Mockito.when(serviceProviderRepository.filterAllServiceProviders(null))
+            .thenReturn(allProviders);
 
   }
 
@@ -84,6 +94,10 @@ public class ServiceProviderServiceTest {
   public void filterServiceProvidersTest() {
     List<ServiceProvider> found = serviceProviderService.filterAllServiceProviders("TestProvider", "02120");
     assertEquals(oneProvider, found);
+    List<ServiceProvider> zipCodeFound = serviceProviderService.filterAllServiceProviders("","02120");
+    assertEquals("TestProvider", zipCodeFound.get(0).getName());
+    assertEquals("TestProvider2", zipCodeFound.get(1).getName());
+    assertEquals("TestProvider3", zipCodeFound.get(2).getName());
   }
 
 }

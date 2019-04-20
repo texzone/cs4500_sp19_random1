@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Collections;
 
 @RestController
 @CrossOrigin(origins="*")
@@ -41,12 +43,10 @@ public class ServiceProviderService {
     if(zipCode == "") {
       zipCode = null;
     }
+    Integer zipCodeInt = Integer.valueOf(zipCode);
     List<ServiceProvider> serviceProviders = serviceProviderRepository.filterAllServiceProviders(provider);
-    /*
-      TODO: Add zip code filtering here.
-      The math will be easier to do in Java once we have the provider list,
-      rather than trying to mess around with the SQL.
-     */
+    Collections.sort(serviceProviders, Comparator.comparingInt(x ->
+            Math.abs(Integer.valueOf(x.getBusinessAddress().getZipCode()) - zipCodeInt)));
     return serviceProviders;
   }
 }
