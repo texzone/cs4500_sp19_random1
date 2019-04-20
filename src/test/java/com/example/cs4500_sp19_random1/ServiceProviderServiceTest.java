@@ -92,7 +92,7 @@ public class ServiceProviderServiceTest {
 
   @Test
   public void filterServiceProvidersTest() {
-    List<ServiceProvider> found = serviceProviderService.filterAllServiceProviders("TestProvider", "02120");
+    List<ServiceProvider> found = serviceProviderService.filterAllServiceProviders("TestProvider", "");
     assertEquals(oneProvider, found);
     List<ServiceProvider> zipCodeFound = serviceProviderService.filterAllServiceProviders("","02120");
     assertEquals("TestProvider", zipCodeFound.get(0).getName());

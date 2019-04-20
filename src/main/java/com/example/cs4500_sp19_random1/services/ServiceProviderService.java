@@ -40,13 +40,12 @@ public class ServiceProviderService {
     if(provider == "") {
       provider = null;
     }
-    if(zipCode == "") {
-      zipCode = null;
-    }
-    Integer zipCodeInt = Integer.valueOf(zipCode);
     List<ServiceProvider> serviceProviders = serviceProviderRepository.filterAllServiceProviders(provider);
-    Collections.sort(serviceProviders, Comparator.comparingInt(x ->
-            Math.abs(Integer.valueOf(x.getBusinessAddress().getZipCode()) - zipCodeInt)));
+    if(!zipCode.equals("")) {
+      Integer zipCodeInt = Integer.valueOf(zipCode);
+      Collections.sort(serviceProviders, Comparator.comparingInt(x ->
+              Math.abs(Integer.valueOf(x.getBusinessAddress().getZipCode()) - zipCodeInt)));
+    }
     return serviceProviders;
   }
 }
