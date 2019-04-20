@@ -49,7 +49,7 @@ public class Provider {
         this.businessEmail = businessEmail;
     }
 
-    public boolean acceptsCreditCard() {
+    public boolean isCreditCard() {
         return creditCard;
     }
 
@@ -57,7 +57,7 @@ public class Provider {
         this.creditCard = creditCard;
     }
 
-    public boolean acceptsCash() {
+    public boolean isCash() {
         return cash;
     }
 
@@ -65,7 +65,7 @@ public class Provider {
         this.cash = cash;
     }
 
-    public boolean acceptsCheck() {
+    public boolean isCheck() {
         return paperCheck;
     }
 
@@ -73,7 +73,7 @@ public class Provider {
         this.paperCheck = check;
     }
 
-    public boolean acceptsVenmo() {
+    public boolean isVenmo() {
         return venmo;
     }
 
@@ -81,7 +81,7 @@ public class Provider {
         this.venmo = venmo;
     }
 
-    public boolean acceptsPaypal() {
+    public boolean isPaypal() {
         return paypal;
     }
 
@@ -89,7 +89,7 @@ public class Provider {
         this.paypal = paypal;
     }
 
-    public boolean acceptsSquare() {
+    public boolean isSquare() {
         return square;
     }
 
@@ -215,10 +215,6 @@ public class Provider {
 
     public void setBusinessAddress(Address address) {
         this.businessAddress = address;
-    }
-
-    public String getZipCode() {
-       return businessAddress.getZipCode();
     }
 
     @Override
