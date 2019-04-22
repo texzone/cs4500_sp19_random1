@@ -68,13 +68,13 @@ public class ServiceProviderService {
     Boolean updatedBackgroundCheck = serviceProviderUpdates.isBackgroundChecked();
 
     if(updatedName != null) { serviceProvider.setName(updatedName); }
-    if(updatedYear != null) { serviceProvider.setYearFounded(updatedYear); }
-    if(updatedRating != null) { serviceProvider.setRating(updatedRating); }
     if(updatedPrice != null) { serviceProvider.setPrice(updatedPrice); }
-    if(updatedHires != null) { serviceProvider.setHires(updatedHires); }
-    if(updatedNumEmployees != null) { serviceProvider.setNumEmployees(updatedNumEmployees); }
+    if(updatedYear != 0) { serviceProvider.setYearFounded(updatedYear); }
+    if(updatedRating != 0.0) { serviceProvider.setRating(updatedRating); }
+    if(updatedHires != 0) { serviceProvider.setHires(updatedHires); }
+    if(updatedNumEmployees != 0) { serviceProvider.setNumEmployees(updatedNumEmployees); }
     if(updatedEmail != null) { serviceProvider.setBusinessEmail(updatedEmail); }
-    if(updatedBackgroundCheck != null) { serviceProvider.setBackgroundChecked(updatedBackgroundCheck); }
+    serviceProvider.setBackgroundChecked(updatedBackgroundCheck);
 
     // Business Address section
 
@@ -109,12 +109,12 @@ public class ServiceProviderService {
     Boolean updatedSquare = serviceProviderUpdates.isSquare();
     Boolean updatedPaypal = serviceProviderUpdates.isPaypal();
 
-    if(updatedCreditCard != null) { serviceProvider.setCreditCard(updatedCreditCard); }
-    if(updatedCash != null) { serviceProvider.setCash(updatedCash); }
-    if(updatedCheck != null) { serviceProvider.setCheck(updatedCheck); }
-    if(updatedVenmo != null) { serviceProvider.setVenmo(updatedVenmo); }
-    if(updatedSquare != null) { serviceProvider.setSquare(updatedSquare); }
-    if(updatedPaypal != null) { serviceProvider.setPaypal(updatedPaypal); }
+    serviceProvider.setCreditCard(updatedCreditCard);
+    serviceProvider.setCash(updatedCash);
+    serviceProvider.setCheck(updatedCheck);
+    serviceProvider.setVenmo(updatedVenmo);
+    serviceProvider.setSquare(updatedSquare);
+    serviceProvider.setPaypal(updatedPaypal);
 
     // Social media section
     String updatedFbLink = serviceProviderUpdates.getFacebookLink();
