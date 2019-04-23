@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-/*
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(ServiceCategoryService.class)
 public class ServiceCategoryTest {
@@ -106,5 +106,3 @@ public class ServiceCategoryTest {
                         containsInAnyOrder("Pet Services","Health Services")));;
     }
 }
-
-*/
