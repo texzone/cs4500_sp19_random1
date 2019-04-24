@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import com.example.cs4500_sp19_random1.models.User;
 import com.example.cs4500_sp19_random1.repositories.UserRepository;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 @RestController
 @CrossOrigin(origins="*")
 public class UserService {
@@ -77,5 +80,32 @@ public class UserService {
     services.remove(service);
     user.setServices(services);
     return userRepository.save(user);
+  }
+
+  @GetMapping("api/users/cred/{username}/{password}")
+  public User findUserByCredentials(
+          @PathVariable("username") String username,
+          @PathVariable("password") String password,
+          HttpServletResponse response) {
+    List<User> userFound = (List<User>) userRepository.findByCredentials(username, password);
+    if (userFound.isEmpty()) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      return null;
+    }
+    else return userFound.get(0);
+  }
+
+
+  @PutMapping("/api/users/login")
+  public User login(@RequestBody User user, HttpSession session, HttpServletResponse response) {
+    List<User> userFound = (List<User>) userRepository.findByCredentials(user.getUsername(), user.getPassword());
+    if (userFound.isEmpty()) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      return null;
+    }
+    else {
+      session.setAttribute("user", userFound.get(0));
+      return userFound.get(0);
+    }
   }
 }
